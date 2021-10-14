@@ -1,0 +1,45 @@
+<aura:component >
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+
+     <aura:attribute name="recordList" type="String[]" default="['red','black','sd','sd','ds','f','f','w','d','f','a','d','h','h','q','t','g','m','m','lo','lkj','mjf','efn','cns','mkls','ejwor','d','dskn','a','b','c','red','black','sd','sd','ds','f','f','w','d','f','a','d','h','h','q','t','g','m','m','lo','lkj','mjf','efn','cns','mkls','ejwor','a','b','c','red','black','sd','sd','ds','f','f','w','d','f','a','d','h','h','q','t','g','m','m','lo','lkj','mjf','efn','cns','mkls','ejwor','a','b','c','red','black','sd','sd','ds','f','f','w','d','f','a','d','h','h','q','t','g','m','m','lo','lkj','mjf','efn','cns','mkls','ejwor','a','b','c','red','black','sd','sd','ds','f','f','w','d','f','a','d','h','h','q','t','g','m','m','lo','lkj','mjf','efn','cns','mkls','ejwor']"/> 
+    
+    <aura:attribute name="paginationList" type="String[]"/>
+    <aura:attribute name="paginationPageNumb" type="List" />
+    <aura:attribute name="pageSize" type="Integer" default="10"/>
+    <aura:attribute name="totalSize" type="Integer"/>
+    <aura:attribute name="start" type="Integer" />
+    <aura:attribute name="currentPageNumber" type="Integer" default='1' />
+    <aura:attribute name="end" type="Integer"/>
+    <table class="slds-table slds-table-bordered ">
+        <thead>
+            <tr style="background-color:#6cbcd2;color:white;font-weight:bold">
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.paginationList}" var="item">
+                <tr>
+                    <td><ui:outputText value="{!item}" /></td>
+                </tr>
+            </aura:iteration>
+        </tbody>
+    </table> 
+    <div class="slds-col slds-wrap">
+      
+        <aura:iteration items="{!v.paginationPageNumb}" var="num" indexVar="index"> 
+            <aura:if isTrue="{!index==0}">
+                <button  disabled="{!v.start == 0}" class="slds-button slds-button_neutral"    onmousedown="{!c.previous}" >
+                    Previous
+                </button>
+            </aura:if>
+            <button disabled="{!num=='...'}" class="{!if(((v.end+1)/v.pageSize)==num,'slds-button slds-button_brand','slds-button slds-button_neutral')}"   data-record="{!num}" name="{!num}" onmousedown="{!c.currentPage}"   >
+                {!num}
+            </button>
+            <aura:if isTrue="{!index==v.paginationPageNumb.length-1}">
+                <button disabled="{!v.end >= v.totalSize-1}"  class="slds-button slds-button_neutral"   onmousedown="{!c.next}"  >
+                    Next
+                </button>
+            </aura:if>
+        </aura:iteration>
+    </div>
+</aura:component>
