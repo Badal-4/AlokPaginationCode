@@ -1,0 +1,34 @@
+({
+    helperMethodPagination :function(component, event, helper,pageNumber){
+        var pageSize = component.get("v.pageSize");
+        var totalpage=Math.ceil(component.get("v.recordList").length/pageSize);
+        var   paginationPageNumb=[];
+        var cont=1;
+       
+        if(pageNumber<7){
+            for(var i=1; i<= totalpage; i++){
+                paginationPageNumb.push(i);
+                if(cont>7){
+                    paginationPageNumb.push('...');
+                    paginationPageNumb.push(totalpage);
+                    break;
+                }
+                cont++;
+            }
+        }
+        else{
+            paginationPageNumb.push('1');
+            paginationPageNumb.push('2');
+            paginationPageNumb.push('...');
+            pageNumber=(pageNumber<=0)?2:((pageNumber>=totalpage)? (totalpage-3) :(( pageNumber==totalpage-1 )?(pageNumber = pageNumber-2):( (pageNumber==totalpage-2 ) ? (pageNumber-1):pageNumber ))) ;
+            for(var i=pageNumber-2; i<=pageNumber+2 ; i++){
+                paginationPageNumb.push(i);
+            }
+            paginationPageNumb.push('...');
+            paginationPageNumb.push(totalpage);
+        }
+        component.set('v.paginationPageNumb', null);
+        component.set('v.paginationPageNumb', paginationPageNumb);
+    }
+ 
+})
